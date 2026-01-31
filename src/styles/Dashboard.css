@@ -1,0 +1,461 @@
+/* ensure friend-name displays nicely alongside status */
+.friend-name {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-right: 0.75rem;
+}
+
+/* align friend-info content and allow stacked layout on small screens */
+.friend-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* reuse search-result-stats for small meta text */
+.search-result-stats {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+/* make the friend-item slightly taller and more comfortable */
+.friend-item {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.friend-item:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ensure all lists have scrollbars and larger max height for player lists */
+.search-results, .friends-list, .requests-list {
+  max-height: 360px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--background-secondary);
+  margin: 1rem 0.5rem;
+  padding: 0.5rem;
+}
+
+/* Update dashboard to prevent scrolling */
+.dashboard {
+  flex: 1;
+  background: #121212;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  overflow: hidden;
+  min-height: 0; /* Prevents flex item from expanding */
+}
+
+/* Center the content vertically and horizontally */
+.dashboard-section.online-players {
+  flex: 1;
+  margin: 0 auto;
+  max-height: calc(100vh - 200px); /* Adjusted to account for navbar, header, and footer */
+  width: 95%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.1) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 1.5rem;
+  padding-bottom: 1rem; /* Reduced bottom padding */
+}
+
+/* Remove dashboard-container and enhance online-players as main container */
+.online-players {
+  flex: 1;
+  margin: 0 auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.1) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  max-width: 1200px;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Adjust friends-list to take remaining space */
+.friends-list {
+  flex: 1;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0.5rem;
+  max-height: calc(100vh - 350px); /* Adjusted to fit within container */
+  min-height: 0;
+}
+
+/* Remove duplicate container styles */
+.dashboard-container {
+  display: none;
+}
+
+/* ensure section headings are visible with gradient text */
+.dashboard-section h2 {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+/* layout: single column for this dashboard */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+/* players list scrollable */
+.friends-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+  max-height: 420px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--background-secondary);
+  padding-right: 10px;
+}
+
+/* scrollbar styling */
+.friends-list::-webkit-scrollbar {
+  width: 8px;
+}
+.friends-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+}
+.friends-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    45deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+.friends-list::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    45deg,
+    var(--secondary-color),
+    var(--primary-color)
+  );
+}
+
+/* make the H1 visible on the gradient container using gradient text */
+.dashboard h1 {
+  background: linear-gradient(90deg, 
+    var(--primary-color) 0%,
+    var(--secondary-color) 50%,
+    var(--primary-color) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 800;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* top search bar inside the main section */
+.top-search-bar {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+.top-search-bar input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.02);
+  color: var(--text-primary);
+}
+.top-search-bar .search-button {
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* Sticky footer setup */
+.page-wrap {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dashboard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  overflow: hidden;
+  min-height: 0; /* Prevents flex item from expanding */
+}
+
+/* Status indicator styling */
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.status-online {
+  background: linear-gradient(45deg, #2ecc71, #27ae60);
+  box-shadow: 0 0 8px rgba(46, 204, 113, 0.5);
+}
+
+.status-playing {
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+  box-shadow: 0 0 8px rgba(231, 76, 60, 0.5);
+}
+
+/* Enhanced invite button styling with gradients */
+.invite-button {
+  background: linear-gradient(45deg, #3498db, #2980b9);
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  margin-left: auto;
+  white-space: nowrap;
+  min-width: 120px;
+  text-align: center;
+}
+
+.invite-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(45deg, #2980b9, #3498db);
+}
+
+.invite-button:disabled {
+  background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+  cursor: not-allowed;
+  transform: none;
+  opacity: 0.7;
+  box-shadow: none;
+}
+
+/* Custom scrollbar styling */
+.friends-list {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--background-secondary);
+}
+
+.friends-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.friends-list::-webkit-scrollbar-track {
+  background: var(--background-secondary);
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.friends-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  border-radius: 10px;
+  border: 3px solid var(--background-secondary);
+}
+
+.friends-list::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+}
+
+/* Online players container styling */
+.online-players {
+  margin: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Online players heading gradient */
+.online-players h2 {
+  background: linear-gradient(90deg, #3498db, #2980b9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+/* New styles for dashboard content layout, singleplayer button, and invites box */
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.singleplayer-button {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  align-self: center;
+  width: 100%;
+  max-width: 300px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.singleplayer-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.invites-box {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.1) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 1.5rem;
+}
+
+.invite-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.invite-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.accept-button, .decline-button {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.accept-button {
+  background: linear-gradient(45deg, #2ecc71, #27ae60);
+  color: white;
+}
+
+.decline-button {
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+  color: white;
+}
+
+.accept-button:hover, .decline-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.invite-text {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .friend-item {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 1rem;
+  }
+  
+  .invite-button {
+    margin-left: 0;
+    margin-top: 0.5rem;
+    width: auto;
+  }
+  
+  .friend-info {
+    justify-content: flex-start;
+  }
+  .top-search-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .top-search-bar .search-button {
+    width: 100%;
+  }
+
+  .invite-item {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .invite-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .accept-button, .decline-button {
+    flex: 1;
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard {
+    padding: 1rem;
+  }
+  .dashboard h1 {
+    font-size: 2rem;
+  }
+}
