@@ -125,9 +125,37 @@ exports.Prisma.UserScalarFieldEnum = {
   score: 'score'
 };
 
+exports.Prisma.MultiplayerGameScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  phase: 'phase',
+  difficulty: 'difficulty',
+  player1ClerkId: 'player1ClerkId',
+  player1Username: 'player1Username',
+  player2ClerkId: 'player2ClerkId',
+  player2Username: 'player2Username',
+  currentTurnClerkId: 'currentTurnClerkId',
+  answeringPlayerClerkId: 'answeringPlayerClerkId',
+  currentCategory: 'currentCategory',
+  currentQuestions: 'currentQuestions',
+  currentQuestionIndex: 'currentQuestionIndex',
+  player1Score: 'player1Score',
+  player2Score: 'player2Score',
+  completedTurns: 'completedTurns',
+  totalTurns: 'totalTurns',
+  activePairKey: 'activePairKey',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -140,9 +168,24 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+exports.MultiplayerGameStatus = exports.$Enums.MultiplayerGameStatus = {
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED'
+};
+
+exports.MultiplayerPhase = exports.$Enums.MultiplayerPhase = {
+  PICK_CATEGORY: 'PICK_CATEGORY',
+  ANSWERING: 'ANSWERING'
+};
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  MultiplayerGame: 'MultiplayerGame'
 };
 
 /**

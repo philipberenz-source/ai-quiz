@@ -1,17 +1,15 @@
-// App.js
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { io } from "socket.io-client";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import SinglePlayer from "./pages/Singleplayer";
 import HowItWorks from "./pages/HowItWorks";
 import Dashboard from "./pages/Dashboard";
+import MultiplayerGame from "./pages/MultiplayerGame";
 import {
   SignedIn,
   SignedOut,
   RedirectToSignIn,
-  useUser,
 } from "@clerk/clerk-react";
 import { SocketProvider } from "./components/SocketProvider";
 
@@ -43,6 +41,19 @@ function App() {
             <>
               <SignedIn>
                 <Dashboard />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+        <Route
+          path="/multiplayer/game/:gameId"
+          element={
+            <>
+              <SignedIn>
+                <MultiplayerGame />
               </SignedIn>
               <SignedOut>
                 <RedirectToSignIn />

@@ -18,6 +18,40 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model MultiplayerGame
+ * 
+ */
+export type MultiplayerGame = $Result.DefaultSelection<Prisma.$MultiplayerGamePayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const MultiplayerGameStatus: {
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED'
+};
+
+export type MultiplayerGameStatus = (typeof MultiplayerGameStatus)[keyof typeof MultiplayerGameStatus]
+
+
+export const MultiplayerPhase: {
+  PICK_CATEGORY: 'PICK_CATEGORY',
+  ANSWERING: 'ANSWERING'
+};
+
+export type MultiplayerPhase = (typeof MultiplayerPhase)[keyof typeof MultiplayerPhase]
+
+}
+
+export type MultiplayerGameStatus = $Enums.MultiplayerGameStatus
+
+export const MultiplayerGameStatus: typeof $Enums.MultiplayerGameStatus
+
+export type MultiplayerPhase = $Enums.MultiplayerPhase
+
+export const MultiplayerPhase: typeof $Enums.MultiplayerPhase
 
 /**
  * ##  Prisma Client ʲˢ
@@ -153,6 +187,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.multiplayerGame`: Exposes CRUD operations for the **MultiplayerGame** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MultiplayerGames
+    * const multiplayerGames = await prisma.multiplayerGame.findMany()
+    * ```
+    */
+  get multiplayerGame(): Prisma.MultiplayerGameDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -593,7 +637,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    User: 'User'
+    User: 'User',
+    MultiplayerGame: 'MultiplayerGame'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -612,7 +657,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user"
+      modelProps: "user" | "multiplayerGame"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -687,6 +732,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      MultiplayerGame: {
+        payload: Prisma.$MultiplayerGamePayload<ExtArgs>
+        fields: Prisma.MultiplayerGameFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MultiplayerGameFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultiplayerGamePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MultiplayerGameFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultiplayerGamePayload>
+          }
+          findFirst: {
+            args: Prisma.MultiplayerGameFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultiplayerGamePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MultiplayerGameFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultiplayerGamePayload>
+          }
+          findMany: {
+            args: Prisma.MultiplayerGameFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultiplayerGamePayload>[]
+          }
+          create: {
+            args: Prisma.MultiplayerGameCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultiplayerGamePayload>
+          }
+          createMany: {
+            args: Prisma.MultiplayerGameCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MultiplayerGameCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultiplayerGamePayload>[]
+          }
+          delete: {
+            args: Prisma.MultiplayerGameDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultiplayerGamePayload>
+          }
+          update: {
+            args: Prisma.MultiplayerGameUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultiplayerGamePayload>
+          }
+          deleteMany: {
+            args: Prisma.MultiplayerGameDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MultiplayerGameUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MultiplayerGameUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultiplayerGamePayload>[]
+          }
+          upsert: {
+            args: Prisma.MultiplayerGameUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultiplayerGamePayload>
+          }
+          aggregate: {
+            args: Prisma.MultiplayerGameAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMultiplayerGame>
+          }
+          groupBy: {
+            args: Prisma.MultiplayerGameGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MultiplayerGameGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MultiplayerGameCountArgs<ExtArgs>
+            result: $Utils.Optional<MultiplayerGameCountAggregateOutputType> | number
           }
         }
       }
@@ -775,6 +894,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    multiplayerGame?: MultiplayerGameOmit
   }
 
   /* Types for Logging */
@@ -2115,6 +2235,1242 @@ export namespace Prisma {
 
 
   /**
+   * Model MultiplayerGame
+   */
+
+  export type AggregateMultiplayerGame = {
+    _count: MultiplayerGameCountAggregateOutputType | null
+    _avg: MultiplayerGameAvgAggregateOutputType | null
+    _sum: MultiplayerGameSumAggregateOutputType | null
+    _min: MultiplayerGameMinAggregateOutputType | null
+    _max: MultiplayerGameMaxAggregateOutputType | null
+  }
+
+  export type MultiplayerGameAvgAggregateOutputType = {
+    currentQuestionIndex: number | null
+    player1Score: number | null
+    player2Score: number | null
+    completedTurns: number | null
+    totalTurns: number | null
+  }
+
+  export type MultiplayerGameSumAggregateOutputType = {
+    currentQuestionIndex: number | null
+    player1Score: number | null
+    player2Score: number | null
+    completedTurns: number | null
+    totalTurns: number | null
+  }
+
+  export type MultiplayerGameMinAggregateOutputType = {
+    id: string | null
+    status: $Enums.MultiplayerGameStatus | null
+    phase: $Enums.MultiplayerPhase | null
+    difficulty: string | null
+    player1ClerkId: string | null
+    player1Username: string | null
+    player2ClerkId: string | null
+    player2Username: string | null
+    currentTurnClerkId: string | null
+    answeringPlayerClerkId: string | null
+    currentCategory: string | null
+    currentQuestionIndex: number | null
+    player1Score: number | null
+    player2Score: number | null
+    completedTurns: number | null
+    totalTurns: number | null
+    activePairKey: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MultiplayerGameMaxAggregateOutputType = {
+    id: string | null
+    status: $Enums.MultiplayerGameStatus | null
+    phase: $Enums.MultiplayerPhase | null
+    difficulty: string | null
+    player1ClerkId: string | null
+    player1Username: string | null
+    player2ClerkId: string | null
+    player2Username: string | null
+    currentTurnClerkId: string | null
+    answeringPlayerClerkId: string | null
+    currentCategory: string | null
+    currentQuestionIndex: number | null
+    player1Score: number | null
+    player2Score: number | null
+    completedTurns: number | null
+    totalTurns: number | null
+    activePairKey: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MultiplayerGameCountAggregateOutputType = {
+    id: number
+    status: number
+    phase: number
+    difficulty: number
+    player1ClerkId: number
+    player1Username: number
+    player2ClerkId: number
+    player2Username: number
+    currentTurnClerkId: number
+    answeringPlayerClerkId: number
+    currentCategory: number
+    currentQuestions: number
+    currentQuestionIndex: number
+    player1Score: number
+    player2Score: number
+    completedTurns: number
+    totalTurns: number
+    activePairKey: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MultiplayerGameAvgAggregateInputType = {
+    currentQuestionIndex?: true
+    player1Score?: true
+    player2Score?: true
+    completedTurns?: true
+    totalTurns?: true
+  }
+
+  export type MultiplayerGameSumAggregateInputType = {
+    currentQuestionIndex?: true
+    player1Score?: true
+    player2Score?: true
+    completedTurns?: true
+    totalTurns?: true
+  }
+
+  export type MultiplayerGameMinAggregateInputType = {
+    id?: true
+    status?: true
+    phase?: true
+    difficulty?: true
+    player1ClerkId?: true
+    player1Username?: true
+    player2ClerkId?: true
+    player2Username?: true
+    currentTurnClerkId?: true
+    answeringPlayerClerkId?: true
+    currentCategory?: true
+    currentQuestionIndex?: true
+    player1Score?: true
+    player2Score?: true
+    completedTurns?: true
+    totalTurns?: true
+    activePairKey?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MultiplayerGameMaxAggregateInputType = {
+    id?: true
+    status?: true
+    phase?: true
+    difficulty?: true
+    player1ClerkId?: true
+    player1Username?: true
+    player2ClerkId?: true
+    player2Username?: true
+    currentTurnClerkId?: true
+    answeringPlayerClerkId?: true
+    currentCategory?: true
+    currentQuestionIndex?: true
+    player1Score?: true
+    player2Score?: true
+    completedTurns?: true
+    totalTurns?: true
+    activePairKey?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MultiplayerGameCountAggregateInputType = {
+    id?: true
+    status?: true
+    phase?: true
+    difficulty?: true
+    player1ClerkId?: true
+    player1Username?: true
+    player2ClerkId?: true
+    player2Username?: true
+    currentTurnClerkId?: true
+    answeringPlayerClerkId?: true
+    currentCategory?: true
+    currentQuestions?: true
+    currentQuestionIndex?: true
+    player1Score?: true
+    player2Score?: true
+    completedTurns?: true
+    totalTurns?: true
+    activePairKey?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MultiplayerGameAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MultiplayerGame to aggregate.
+     */
+    where?: MultiplayerGameWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MultiplayerGames to fetch.
+     */
+    orderBy?: MultiplayerGameOrderByWithRelationInput | MultiplayerGameOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MultiplayerGameWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MultiplayerGames from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MultiplayerGames.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MultiplayerGames
+    **/
+    _count?: true | MultiplayerGameCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MultiplayerGameAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MultiplayerGameSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MultiplayerGameMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MultiplayerGameMaxAggregateInputType
+  }
+
+  export type GetMultiplayerGameAggregateType<T extends MultiplayerGameAggregateArgs> = {
+        [P in keyof T & keyof AggregateMultiplayerGame]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMultiplayerGame[P]>
+      : GetScalarType<T[P], AggregateMultiplayerGame[P]>
+  }
+
+
+
+
+  export type MultiplayerGameGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MultiplayerGameWhereInput
+    orderBy?: MultiplayerGameOrderByWithAggregationInput | MultiplayerGameOrderByWithAggregationInput[]
+    by: MultiplayerGameScalarFieldEnum[] | MultiplayerGameScalarFieldEnum
+    having?: MultiplayerGameScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MultiplayerGameCountAggregateInputType | true
+    _avg?: MultiplayerGameAvgAggregateInputType
+    _sum?: MultiplayerGameSumAggregateInputType
+    _min?: MultiplayerGameMinAggregateInputType
+    _max?: MultiplayerGameMaxAggregateInputType
+  }
+
+  export type MultiplayerGameGroupByOutputType = {
+    id: string
+    status: $Enums.MultiplayerGameStatus
+    phase: $Enums.MultiplayerPhase
+    difficulty: string
+    player1ClerkId: string
+    player1Username: string
+    player2ClerkId: string
+    player2Username: string
+    currentTurnClerkId: string | null
+    answeringPlayerClerkId: string | null
+    currentCategory: string | null
+    currentQuestions: JsonValue | null
+    currentQuestionIndex: number
+    player1Score: number
+    player2Score: number
+    completedTurns: number
+    totalTurns: number
+    activePairKey: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: MultiplayerGameCountAggregateOutputType | null
+    _avg: MultiplayerGameAvgAggregateOutputType | null
+    _sum: MultiplayerGameSumAggregateOutputType | null
+    _min: MultiplayerGameMinAggregateOutputType | null
+    _max: MultiplayerGameMaxAggregateOutputType | null
+  }
+
+  type GetMultiplayerGameGroupByPayload<T extends MultiplayerGameGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MultiplayerGameGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MultiplayerGameGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MultiplayerGameGroupByOutputType[P]>
+            : GetScalarType<T[P], MultiplayerGameGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MultiplayerGameSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    status?: boolean
+    phase?: boolean
+    difficulty?: boolean
+    player1ClerkId?: boolean
+    player1Username?: boolean
+    player2ClerkId?: boolean
+    player2Username?: boolean
+    currentTurnClerkId?: boolean
+    answeringPlayerClerkId?: boolean
+    currentCategory?: boolean
+    currentQuestions?: boolean
+    currentQuestionIndex?: boolean
+    player1Score?: boolean
+    player2Score?: boolean
+    completedTurns?: boolean
+    totalTurns?: boolean
+    activePairKey?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["multiplayerGame"]>
+
+  export type MultiplayerGameSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    status?: boolean
+    phase?: boolean
+    difficulty?: boolean
+    player1ClerkId?: boolean
+    player1Username?: boolean
+    player2ClerkId?: boolean
+    player2Username?: boolean
+    currentTurnClerkId?: boolean
+    answeringPlayerClerkId?: boolean
+    currentCategory?: boolean
+    currentQuestions?: boolean
+    currentQuestionIndex?: boolean
+    player1Score?: boolean
+    player2Score?: boolean
+    completedTurns?: boolean
+    totalTurns?: boolean
+    activePairKey?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["multiplayerGame"]>
+
+  export type MultiplayerGameSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    status?: boolean
+    phase?: boolean
+    difficulty?: boolean
+    player1ClerkId?: boolean
+    player1Username?: boolean
+    player2ClerkId?: boolean
+    player2Username?: boolean
+    currentTurnClerkId?: boolean
+    answeringPlayerClerkId?: boolean
+    currentCategory?: boolean
+    currentQuestions?: boolean
+    currentQuestionIndex?: boolean
+    player1Score?: boolean
+    player2Score?: boolean
+    completedTurns?: boolean
+    totalTurns?: boolean
+    activePairKey?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["multiplayerGame"]>
+
+  export type MultiplayerGameSelectScalar = {
+    id?: boolean
+    status?: boolean
+    phase?: boolean
+    difficulty?: boolean
+    player1ClerkId?: boolean
+    player1Username?: boolean
+    player2ClerkId?: boolean
+    player2Username?: boolean
+    currentTurnClerkId?: boolean
+    answeringPlayerClerkId?: boolean
+    currentCategory?: boolean
+    currentQuestions?: boolean
+    currentQuestionIndex?: boolean
+    player1Score?: boolean
+    player2Score?: boolean
+    completedTurns?: boolean
+    totalTurns?: boolean
+    activePairKey?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MultiplayerGameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "phase" | "difficulty" | "player1ClerkId" | "player1Username" | "player2ClerkId" | "player2Username" | "currentTurnClerkId" | "answeringPlayerClerkId" | "currentCategory" | "currentQuestions" | "currentQuestionIndex" | "player1Score" | "player2Score" | "completedTurns" | "totalTurns" | "activePairKey" | "createdAt" | "updatedAt", ExtArgs["result"]["multiplayerGame"]>
+
+  export type $MultiplayerGamePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MultiplayerGame"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      status: $Enums.MultiplayerGameStatus
+      phase: $Enums.MultiplayerPhase
+      difficulty: string
+      player1ClerkId: string
+      player1Username: string
+      player2ClerkId: string
+      player2Username: string
+      currentTurnClerkId: string | null
+      answeringPlayerClerkId: string | null
+      currentCategory: string | null
+      currentQuestions: Prisma.JsonValue | null
+      currentQuestionIndex: number
+      player1Score: number
+      player2Score: number
+      completedTurns: number
+      totalTurns: number
+      activePairKey: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["multiplayerGame"]>
+    composites: {}
+  }
+
+  type MultiplayerGameGetPayload<S extends boolean | null | undefined | MultiplayerGameDefaultArgs> = $Result.GetResult<Prisma.$MultiplayerGamePayload, S>
+
+  type MultiplayerGameCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MultiplayerGameFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MultiplayerGameCountAggregateInputType | true
+    }
+
+  export interface MultiplayerGameDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MultiplayerGame'], meta: { name: 'MultiplayerGame' } }
+    /**
+     * Find zero or one MultiplayerGame that matches the filter.
+     * @param {MultiplayerGameFindUniqueArgs} args - Arguments to find a MultiplayerGame
+     * @example
+     * // Get one MultiplayerGame
+     * const multiplayerGame = await prisma.multiplayerGame.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MultiplayerGameFindUniqueArgs>(args: SelectSubset<T, MultiplayerGameFindUniqueArgs<ExtArgs>>): Prisma__MultiplayerGameClient<$Result.GetResult<Prisma.$MultiplayerGamePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MultiplayerGame that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MultiplayerGameFindUniqueOrThrowArgs} args - Arguments to find a MultiplayerGame
+     * @example
+     * // Get one MultiplayerGame
+     * const multiplayerGame = await prisma.multiplayerGame.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MultiplayerGameFindUniqueOrThrowArgs>(args: SelectSubset<T, MultiplayerGameFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MultiplayerGameClient<$Result.GetResult<Prisma.$MultiplayerGamePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MultiplayerGame that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultiplayerGameFindFirstArgs} args - Arguments to find a MultiplayerGame
+     * @example
+     * // Get one MultiplayerGame
+     * const multiplayerGame = await prisma.multiplayerGame.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MultiplayerGameFindFirstArgs>(args?: SelectSubset<T, MultiplayerGameFindFirstArgs<ExtArgs>>): Prisma__MultiplayerGameClient<$Result.GetResult<Prisma.$MultiplayerGamePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MultiplayerGame that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultiplayerGameFindFirstOrThrowArgs} args - Arguments to find a MultiplayerGame
+     * @example
+     * // Get one MultiplayerGame
+     * const multiplayerGame = await prisma.multiplayerGame.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MultiplayerGameFindFirstOrThrowArgs>(args?: SelectSubset<T, MultiplayerGameFindFirstOrThrowArgs<ExtArgs>>): Prisma__MultiplayerGameClient<$Result.GetResult<Prisma.$MultiplayerGamePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MultiplayerGames that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultiplayerGameFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MultiplayerGames
+     * const multiplayerGames = await prisma.multiplayerGame.findMany()
+     * 
+     * // Get first 10 MultiplayerGames
+     * const multiplayerGames = await prisma.multiplayerGame.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const multiplayerGameWithIdOnly = await prisma.multiplayerGame.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MultiplayerGameFindManyArgs>(args?: SelectSubset<T, MultiplayerGameFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultiplayerGamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MultiplayerGame.
+     * @param {MultiplayerGameCreateArgs} args - Arguments to create a MultiplayerGame.
+     * @example
+     * // Create one MultiplayerGame
+     * const MultiplayerGame = await prisma.multiplayerGame.create({
+     *   data: {
+     *     // ... data to create a MultiplayerGame
+     *   }
+     * })
+     * 
+     */
+    create<T extends MultiplayerGameCreateArgs>(args: SelectSubset<T, MultiplayerGameCreateArgs<ExtArgs>>): Prisma__MultiplayerGameClient<$Result.GetResult<Prisma.$MultiplayerGamePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MultiplayerGames.
+     * @param {MultiplayerGameCreateManyArgs} args - Arguments to create many MultiplayerGames.
+     * @example
+     * // Create many MultiplayerGames
+     * const multiplayerGame = await prisma.multiplayerGame.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MultiplayerGameCreateManyArgs>(args?: SelectSubset<T, MultiplayerGameCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MultiplayerGames and returns the data saved in the database.
+     * @param {MultiplayerGameCreateManyAndReturnArgs} args - Arguments to create many MultiplayerGames.
+     * @example
+     * // Create many MultiplayerGames
+     * const multiplayerGame = await prisma.multiplayerGame.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MultiplayerGames and only return the `id`
+     * const multiplayerGameWithIdOnly = await prisma.multiplayerGame.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MultiplayerGameCreateManyAndReturnArgs>(args?: SelectSubset<T, MultiplayerGameCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultiplayerGamePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MultiplayerGame.
+     * @param {MultiplayerGameDeleteArgs} args - Arguments to delete one MultiplayerGame.
+     * @example
+     * // Delete one MultiplayerGame
+     * const MultiplayerGame = await prisma.multiplayerGame.delete({
+     *   where: {
+     *     // ... filter to delete one MultiplayerGame
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MultiplayerGameDeleteArgs>(args: SelectSubset<T, MultiplayerGameDeleteArgs<ExtArgs>>): Prisma__MultiplayerGameClient<$Result.GetResult<Prisma.$MultiplayerGamePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MultiplayerGame.
+     * @param {MultiplayerGameUpdateArgs} args - Arguments to update one MultiplayerGame.
+     * @example
+     * // Update one MultiplayerGame
+     * const multiplayerGame = await prisma.multiplayerGame.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MultiplayerGameUpdateArgs>(args: SelectSubset<T, MultiplayerGameUpdateArgs<ExtArgs>>): Prisma__MultiplayerGameClient<$Result.GetResult<Prisma.$MultiplayerGamePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MultiplayerGames.
+     * @param {MultiplayerGameDeleteManyArgs} args - Arguments to filter MultiplayerGames to delete.
+     * @example
+     * // Delete a few MultiplayerGames
+     * const { count } = await prisma.multiplayerGame.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MultiplayerGameDeleteManyArgs>(args?: SelectSubset<T, MultiplayerGameDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MultiplayerGames.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultiplayerGameUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MultiplayerGames
+     * const multiplayerGame = await prisma.multiplayerGame.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MultiplayerGameUpdateManyArgs>(args: SelectSubset<T, MultiplayerGameUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MultiplayerGames and returns the data updated in the database.
+     * @param {MultiplayerGameUpdateManyAndReturnArgs} args - Arguments to update many MultiplayerGames.
+     * @example
+     * // Update many MultiplayerGames
+     * const multiplayerGame = await prisma.multiplayerGame.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MultiplayerGames and only return the `id`
+     * const multiplayerGameWithIdOnly = await prisma.multiplayerGame.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MultiplayerGameUpdateManyAndReturnArgs>(args: SelectSubset<T, MultiplayerGameUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultiplayerGamePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MultiplayerGame.
+     * @param {MultiplayerGameUpsertArgs} args - Arguments to update or create a MultiplayerGame.
+     * @example
+     * // Update or create a MultiplayerGame
+     * const multiplayerGame = await prisma.multiplayerGame.upsert({
+     *   create: {
+     *     // ... data to create a MultiplayerGame
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MultiplayerGame we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MultiplayerGameUpsertArgs>(args: SelectSubset<T, MultiplayerGameUpsertArgs<ExtArgs>>): Prisma__MultiplayerGameClient<$Result.GetResult<Prisma.$MultiplayerGamePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MultiplayerGames.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultiplayerGameCountArgs} args - Arguments to filter MultiplayerGames to count.
+     * @example
+     * // Count the number of MultiplayerGames
+     * const count = await prisma.multiplayerGame.count({
+     *   where: {
+     *     // ... the filter for the MultiplayerGames we want to count
+     *   }
+     * })
+    **/
+    count<T extends MultiplayerGameCountArgs>(
+      args?: Subset<T, MultiplayerGameCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MultiplayerGameCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MultiplayerGame.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultiplayerGameAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MultiplayerGameAggregateArgs>(args: Subset<T, MultiplayerGameAggregateArgs>): Prisma.PrismaPromise<GetMultiplayerGameAggregateType<T>>
+
+    /**
+     * Group by MultiplayerGame.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultiplayerGameGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MultiplayerGameGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MultiplayerGameGroupByArgs['orderBy'] }
+        : { orderBy?: MultiplayerGameGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MultiplayerGameGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMultiplayerGameGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MultiplayerGame model
+   */
+  readonly fields: MultiplayerGameFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MultiplayerGame.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MultiplayerGameClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MultiplayerGame model
+   */
+  interface MultiplayerGameFieldRefs {
+    readonly id: FieldRef<"MultiplayerGame", 'String'>
+    readonly status: FieldRef<"MultiplayerGame", 'MultiplayerGameStatus'>
+    readonly phase: FieldRef<"MultiplayerGame", 'MultiplayerPhase'>
+    readonly difficulty: FieldRef<"MultiplayerGame", 'String'>
+    readonly player1ClerkId: FieldRef<"MultiplayerGame", 'String'>
+    readonly player1Username: FieldRef<"MultiplayerGame", 'String'>
+    readonly player2ClerkId: FieldRef<"MultiplayerGame", 'String'>
+    readonly player2Username: FieldRef<"MultiplayerGame", 'String'>
+    readonly currentTurnClerkId: FieldRef<"MultiplayerGame", 'String'>
+    readonly answeringPlayerClerkId: FieldRef<"MultiplayerGame", 'String'>
+    readonly currentCategory: FieldRef<"MultiplayerGame", 'String'>
+    readonly currentQuestions: FieldRef<"MultiplayerGame", 'Json'>
+    readonly currentQuestionIndex: FieldRef<"MultiplayerGame", 'Int'>
+    readonly player1Score: FieldRef<"MultiplayerGame", 'Int'>
+    readonly player2Score: FieldRef<"MultiplayerGame", 'Int'>
+    readonly completedTurns: FieldRef<"MultiplayerGame", 'Int'>
+    readonly totalTurns: FieldRef<"MultiplayerGame", 'Int'>
+    readonly activePairKey: FieldRef<"MultiplayerGame", 'String'>
+    readonly createdAt: FieldRef<"MultiplayerGame", 'DateTime'>
+    readonly updatedAt: FieldRef<"MultiplayerGame", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MultiplayerGame findUnique
+   */
+  export type MultiplayerGameFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultiplayerGame
+     */
+    select?: MultiplayerGameSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultiplayerGame
+     */
+    omit?: MultiplayerGameOmit<ExtArgs> | null
+    /**
+     * Filter, which MultiplayerGame to fetch.
+     */
+    where: MultiplayerGameWhereUniqueInput
+  }
+
+  /**
+   * MultiplayerGame findUniqueOrThrow
+   */
+  export type MultiplayerGameFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultiplayerGame
+     */
+    select?: MultiplayerGameSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultiplayerGame
+     */
+    omit?: MultiplayerGameOmit<ExtArgs> | null
+    /**
+     * Filter, which MultiplayerGame to fetch.
+     */
+    where: MultiplayerGameWhereUniqueInput
+  }
+
+  /**
+   * MultiplayerGame findFirst
+   */
+  export type MultiplayerGameFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultiplayerGame
+     */
+    select?: MultiplayerGameSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultiplayerGame
+     */
+    omit?: MultiplayerGameOmit<ExtArgs> | null
+    /**
+     * Filter, which MultiplayerGame to fetch.
+     */
+    where?: MultiplayerGameWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MultiplayerGames to fetch.
+     */
+    orderBy?: MultiplayerGameOrderByWithRelationInput | MultiplayerGameOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MultiplayerGames.
+     */
+    cursor?: MultiplayerGameWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MultiplayerGames from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MultiplayerGames.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MultiplayerGames.
+     */
+    distinct?: MultiplayerGameScalarFieldEnum | MultiplayerGameScalarFieldEnum[]
+  }
+
+  /**
+   * MultiplayerGame findFirstOrThrow
+   */
+  export type MultiplayerGameFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultiplayerGame
+     */
+    select?: MultiplayerGameSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultiplayerGame
+     */
+    omit?: MultiplayerGameOmit<ExtArgs> | null
+    /**
+     * Filter, which MultiplayerGame to fetch.
+     */
+    where?: MultiplayerGameWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MultiplayerGames to fetch.
+     */
+    orderBy?: MultiplayerGameOrderByWithRelationInput | MultiplayerGameOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MultiplayerGames.
+     */
+    cursor?: MultiplayerGameWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MultiplayerGames from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MultiplayerGames.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MultiplayerGames.
+     */
+    distinct?: MultiplayerGameScalarFieldEnum | MultiplayerGameScalarFieldEnum[]
+  }
+
+  /**
+   * MultiplayerGame findMany
+   */
+  export type MultiplayerGameFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultiplayerGame
+     */
+    select?: MultiplayerGameSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultiplayerGame
+     */
+    omit?: MultiplayerGameOmit<ExtArgs> | null
+    /**
+     * Filter, which MultiplayerGames to fetch.
+     */
+    where?: MultiplayerGameWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MultiplayerGames to fetch.
+     */
+    orderBy?: MultiplayerGameOrderByWithRelationInput | MultiplayerGameOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MultiplayerGames.
+     */
+    cursor?: MultiplayerGameWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MultiplayerGames from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MultiplayerGames.
+     */
+    skip?: number
+    distinct?: MultiplayerGameScalarFieldEnum | MultiplayerGameScalarFieldEnum[]
+  }
+
+  /**
+   * MultiplayerGame create
+   */
+  export type MultiplayerGameCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultiplayerGame
+     */
+    select?: MultiplayerGameSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultiplayerGame
+     */
+    omit?: MultiplayerGameOmit<ExtArgs> | null
+    /**
+     * The data needed to create a MultiplayerGame.
+     */
+    data: XOR<MultiplayerGameCreateInput, MultiplayerGameUncheckedCreateInput>
+  }
+
+  /**
+   * MultiplayerGame createMany
+   */
+  export type MultiplayerGameCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MultiplayerGames.
+     */
+    data: MultiplayerGameCreateManyInput | MultiplayerGameCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MultiplayerGame createManyAndReturn
+   */
+  export type MultiplayerGameCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultiplayerGame
+     */
+    select?: MultiplayerGameSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultiplayerGame
+     */
+    omit?: MultiplayerGameOmit<ExtArgs> | null
+    /**
+     * The data used to create many MultiplayerGames.
+     */
+    data: MultiplayerGameCreateManyInput | MultiplayerGameCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MultiplayerGame update
+   */
+  export type MultiplayerGameUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultiplayerGame
+     */
+    select?: MultiplayerGameSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultiplayerGame
+     */
+    omit?: MultiplayerGameOmit<ExtArgs> | null
+    /**
+     * The data needed to update a MultiplayerGame.
+     */
+    data: XOR<MultiplayerGameUpdateInput, MultiplayerGameUncheckedUpdateInput>
+    /**
+     * Choose, which MultiplayerGame to update.
+     */
+    where: MultiplayerGameWhereUniqueInput
+  }
+
+  /**
+   * MultiplayerGame updateMany
+   */
+  export type MultiplayerGameUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MultiplayerGames.
+     */
+    data: XOR<MultiplayerGameUpdateManyMutationInput, MultiplayerGameUncheckedUpdateManyInput>
+    /**
+     * Filter which MultiplayerGames to update
+     */
+    where?: MultiplayerGameWhereInput
+    /**
+     * Limit how many MultiplayerGames to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MultiplayerGame updateManyAndReturn
+   */
+  export type MultiplayerGameUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultiplayerGame
+     */
+    select?: MultiplayerGameSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultiplayerGame
+     */
+    omit?: MultiplayerGameOmit<ExtArgs> | null
+    /**
+     * The data used to update MultiplayerGames.
+     */
+    data: XOR<MultiplayerGameUpdateManyMutationInput, MultiplayerGameUncheckedUpdateManyInput>
+    /**
+     * Filter which MultiplayerGames to update
+     */
+    where?: MultiplayerGameWhereInput
+    /**
+     * Limit how many MultiplayerGames to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MultiplayerGame upsert
+   */
+  export type MultiplayerGameUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultiplayerGame
+     */
+    select?: MultiplayerGameSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultiplayerGame
+     */
+    omit?: MultiplayerGameOmit<ExtArgs> | null
+    /**
+     * The filter to search for the MultiplayerGame to update in case it exists.
+     */
+    where: MultiplayerGameWhereUniqueInput
+    /**
+     * In case the MultiplayerGame found by the `where` argument doesn't exist, create a new MultiplayerGame with this data.
+     */
+    create: XOR<MultiplayerGameCreateInput, MultiplayerGameUncheckedCreateInput>
+    /**
+     * In case the MultiplayerGame was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MultiplayerGameUpdateInput, MultiplayerGameUncheckedUpdateInput>
+  }
+
+  /**
+   * MultiplayerGame delete
+   */
+  export type MultiplayerGameDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultiplayerGame
+     */
+    select?: MultiplayerGameSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultiplayerGame
+     */
+    omit?: MultiplayerGameOmit<ExtArgs> | null
+    /**
+     * Filter which MultiplayerGame to delete.
+     */
+    where: MultiplayerGameWhereUniqueInput
+  }
+
+  /**
+   * MultiplayerGame deleteMany
+   */
+  export type MultiplayerGameDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MultiplayerGames to delete
+     */
+    where?: MultiplayerGameWhereInput
+    /**
+     * Limit how many MultiplayerGames to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MultiplayerGame without action
+   */
+  export type MultiplayerGameDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultiplayerGame
+     */
+    select?: MultiplayerGameSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultiplayerGame
+     */
+    omit?: MultiplayerGameOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -2139,12 +3495,46 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const MultiplayerGameScalarFieldEnum: {
+    id: 'id',
+    status: 'status',
+    phase: 'phase',
+    difficulty: 'difficulty',
+    player1ClerkId: 'player1ClerkId',
+    player1Username: 'player1Username',
+    player2ClerkId: 'player2ClerkId',
+    player2Username: 'player2Username',
+    currentTurnClerkId: 'currentTurnClerkId',
+    answeringPlayerClerkId: 'answeringPlayerClerkId',
+    currentCategory: 'currentCategory',
+    currentQuestions: 'currentQuestions',
+    currentQuestionIndex: 'currentQuestionIndex',
+    player1Score: 'player1Score',
+    player2Score: 'player2Score',
+    completedTurns: 'completedTurns',
+    totalTurns: 'totalTurns',
+    activePairKey: 'activePairKey',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MultiplayerGameScalarFieldEnum = (typeof MultiplayerGameScalarFieldEnum)[keyof typeof MultiplayerGameScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -2161,6 +3551,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -2200,6 +3599,62 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MultiplayerGameStatus'
+   */
+  export type EnumMultiplayerGameStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MultiplayerGameStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'MultiplayerGameStatus[]'
+   */
+  export type ListEnumMultiplayerGameStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MultiplayerGameStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MultiplayerPhase'
+   */
+  export type EnumMultiplayerPhaseFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MultiplayerPhase'>
+    
+
+
+  /**
+   * Reference to a field of type 'MultiplayerPhase[]'
+   */
+  export type ListEnumMultiplayerPhaseFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MultiplayerPhase[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -2286,6 +3741,135 @@ export namespace Prisma {
     score?: IntNullableWithAggregatesFilter<"User"> | number | null
   }
 
+  export type MultiplayerGameWhereInput = {
+    AND?: MultiplayerGameWhereInput | MultiplayerGameWhereInput[]
+    OR?: MultiplayerGameWhereInput[]
+    NOT?: MultiplayerGameWhereInput | MultiplayerGameWhereInput[]
+    id?: StringFilter<"MultiplayerGame"> | string
+    status?: EnumMultiplayerGameStatusFilter<"MultiplayerGame"> | $Enums.MultiplayerGameStatus
+    phase?: EnumMultiplayerPhaseFilter<"MultiplayerGame"> | $Enums.MultiplayerPhase
+    difficulty?: StringFilter<"MultiplayerGame"> | string
+    player1ClerkId?: StringFilter<"MultiplayerGame"> | string
+    player1Username?: StringFilter<"MultiplayerGame"> | string
+    player2ClerkId?: StringFilter<"MultiplayerGame"> | string
+    player2Username?: StringFilter<"MultiplayerGame"> | string
+    currentTurnClerkId?: StringNullableFilter<"MultiplayerGame"> | string | null
+    answeringPlayerClerkId?: StringNullableFilter<"MultiplayerGame"> | string | null
+    currentCategory?: StringNullableFilter<"MultiplayerGame"> | string | null
+    currentQuestions?: JsonNullableFilter<"MultiplayerGame">
+    currentQuestionIndex?: IntFilter<"MultiplayerGame"> | number
+    player1Score?: IntFilter<"MultiplayerGame"> | number
+    player2Score?: IntFilter<"MultiplayerGame"> | number
+    completedTurns?: IntFilter<"MultiplayerGame"> | number
+    totalTurns?: IntFilter<"MultiplayerGame"> | number
+    activePairKey?: StringNullableFilter<"MultiplayerGame"> | string | null
+    createdAt?: DateTimeFilter<"MultiplayerGame"> | Date | string
+    updatedAt?: DateTimeFilter<"MultiplayerGame"> | Date | string
+  }
+
+  export type MultiplayerGameOrderByWithRelationInput = {
+    id?: SortOrder
+    status?: SortOrder
+    phase?: SortOrder
+    difficulty?: SortOrder
+    player1ClerkId?: SortOrder
+    player1Username?: SortOrder
+    player2ClerkId?: SortOrder
+    player2Username?: SortOrder
+    currentTurnClerkId?: SortOrderInput | SortOrder
+    answeringPlayerClerkId?: SortOrderInput | SortOrder
+    currentCategory?: SortOrderInput | SortOrder
+    currentQuestions?: SortOrderInput | SortOrder
+    currentQuestionIndex?: SortOrder
+    player1Score?: SortOrder
+    player2Score?: SortOrder
+    completedTurns?: SortOrder
+    totalTurns?: SortOrder
+    activePairKey?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MultiplayerGameWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    activePairKey?: string
+    AND?: MultiplayerGameWhereInput | MultiplayerGameWhereInput[]
+    OR?: MultiplayerGameWhereInput[]
+    NOT?: MultiplayerGameWhereInput | MultiplayerGameWhereInput[]
+    status?: EnumMultiplayerGameStatusFilter<"MultiplayerGame"> | $Enums.MultiplayerGameStatus
+    phase?: EnumMultiplayerPhaseFilter<"MultiplayerGame"> | $Enums.MultiplayerPhase
+    difficulty?: StringFilter<"MultiplayerGame"> | string
+    player1ClerkId?: StringFilter<"MultiplayerGame"> | string
+    player1Username?: StringFilter<"MultiplayerGame"> | string
+    player2ClerkId?: StringFilter<"MultiplayerGame"> | string
+    player2Username?: StringFilter<"MultiplayerGame"> | string
+    currentTurnClerkId?: StringNullableFilter<"MultiplayerGame"> | string | null
+    answeringPlayerClerkId?: StringNullableFilter<"MultiplayerGame"> | string | null
+    currentCategory?: StringNullableFilter<"MultiplayerGame"> | string | null
+    currentQuestions?: JsonNullableFilter<"MultiplayerGame">
+    currentQuestionIndex?: IntFilter<"MultiplayerGame"> | number
+    player1Score?: IntFilter<"MultiplayerGame"> | number
+    player2Score?: IntFilter<"MultiplayerGame"> | number
+    completedTurns?: IntFilter<"MultiplayerGame"> | number
+    totalTurns?: IntFilter<"MultiplayerGame"> | number
+    createdAt?: DateTimeFilter<"MultiplayerGame"> | Date | string
+    updatedAt?: DateTimeFilter<"MultiplayerGame"> | Date | string
+  }, "id" | "activePairKey">
+
+  export type MultiplayerGameOrderByWithAggregationInput = {
+    id?: SortOrder
+    status?: SortOrder
+    phase?: SortOrder
+    difficulty?: SortOrder
+    player1ClerkId?: SortOrder
+    player1Username?: SortOrder
+    player2ClerkId?: SortOrder
+    player2Username?: SortOrder
+    currentTurnClerkId?: SortOrderInput | SortOrder
+    answeringPlayerClerkId?: SortOrderInput | SortOrder
+    currentCategory?: SortOrderInput | SortOrder
+    currentQuestions?: SortOrderInput | SortOrder
+    currentQuestionIndex?: SortOrder
+    player1Score?: SortOrder
+    player2Score?: SortOrder
+    completedTurns?: SortOrder
+    totalTurns?: SortOrder
+    activePairKey?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MultiplayerGameCountOrderByAggregateInput
+    _avg?: MultiplayerGameAvgOrderByAggregateInput
+    _max?: MultiplayerGameMaxOrderByAggregateInput
+    _min?: MultiplayerGameMinOrderByAggregateInput
+    _sum?: MultiplayerGameSumOrderByAggregateInput
+  }
+
+  export type MultiplayerGameScalarWhereWithAggregatesInput = {
+    AND?: MultiplayerGameScalarWhereWithAggregatesInput | MultiplayerGameScalarWhereWithAggregatesInput[]
+    OR?: MultiplayerGameScalarWhereWithAggregatesInput[]
+    NOT?: MultiplayerGameScalarWhereWithAggregatesInput | MultiplayerGameScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MultiplayerGame"> | string
+    status?: EnumMultiplayerGameStatusWithAggregatesFilter<"MultiplayerGame"> | $Enums.MultiplayerGameStatus
+    phase?: EnumMultiplayerPhaseWithAggregatesFilter<"MultiplayerGame"> | $Enums.MultiplayerPhase
+    difficulty?: StringWithAggregatesFilter<"MultiplayerGame"> | string
+    player1ClerkId?: StringWithAggregatesFilter<"MultiplayerGame"> | string
+    player1Username?: StringWithAggregatesFilter<"MultiplayerGame"> | string
+    player2ClerkId?: StringWithAggregatesFilter<"MultiplayerGame"> | string
+    player2Username?: StringWithAggregatesFilter<"MultiplayerGame"> | string
+    currentTurnClerkId?: StringNullableWithAggregatesFilter<"MultiplayerGame"> | string | null
+    answeringPlayerClerkId?: StringNullableWithAggregatesFilter<"MultiplayerGame"> | string | null
+    currentCategory?: StringNullableWithAggregatesFilter<"MultiplayerGame"> | string | null
+    currentQuestions?: JsonNullableWithAggregatesFilter<"MultiplayerGame">
+    currentQuestionIndex?: IntWithAggregatesFilter<"MultiplayerGame"> | number
+    player1Score?: IntWithAggregatesFilter<"MultiplayerGame"> | number
+    player2Score?: IntWithAggregatesFilter<"MultiplayerGame"> | number
+    completedTurns?: IntWithAggregatesFilter<"MultiplayerGame"> | number
+    totalTurns?: IntWithAggregatesFilter<"MultiplayerGame"> | number
+    activePairKey?: StringNullableWithAggregatesFilter<"MultiplayerGame"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MultiplayerGame"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MultiplayerGame"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     username?: string | null
@@ -2356,6 +3940,167 @@ export namespace Prisma {
     isOnline?: BoolFieldUpdateOperationsInput | boolean
     clerkId?: NullableStringFieldUpdateOperationsInput | string | null
     score?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type MultiplayerGameCreateInput = {
+    id?: string
+    status?: $Enums.MultiplayerGameStatus
+    phase?: $Enums.MultiplayerPhase
+    difficulty: string
+    player1ClerkId: string
+    player1Username: string
+    player2ClerkId: string
+    player2Username: string
+    currentTurnClerkId?: string | null
+    answeringPlayerClerkId?: string | null
+    currentCategory?: string | null
+    currentQuestions?: NullableJsonNullValueInput | InputJsonValue
+    currentQuestionIndex?: number
+    player1Score?: number
+    player2Score?: number
+    completedTurns?: number
+    totalTurns?: number
+    activePairKey?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MultiplayerGameUncheckedCreateInput = {
+    id?: string
+    status?: $Enums.MultiplayerGameStatus
+    phase?: $Enums.MultiplayerPhase
+    difficulty: string
+    player1ClerkId: string
+    player1Username: string
+    player2ClerkId: string
+    player2Username: string
+    currentTurnClerkId?: string | null
+    answeringPlayerClerkId?: string | null
+    currentCategory?: string | null
+    currentQuestions?: NullableJsonNullValueInput | InputJsonValue
+    currentQuestionIndex?: number
+    player1Score?: number
+    player2Score?: number
+    completedTurns?: number
+    totalTurns?: number
+    activePairKey?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MultiplayerGameUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumMultiplayerGameStatusFieldUpdateOperationsInput | $Enums.MultiplayerGameStatus
+    phase?: EnumMultiplayerPhaseFieldUpdateOperationsInput | $Enums.MultiplayerPhase
+    difficulty?: StringFieldUpdateOperationsInput | string
+    player1ClerkId?: StringFieldUpdateOperationsInput | string
+    player1Username?: StringFieldUpdateOperationsInput | string
+    player2ClerkId?: StringFieldUpdateOperationsInput | string
+    player2Username?: StringFieldUpdateOperationsInput | string
+    currentTurnClerkId?: NullableStringFieldUpdateOperationsInput | string | null
+    answeringPlayerClerkId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    currentQuestions?: NullableJsonNullValueInput | InputJsonValue
+    currentQuestionIndex?: IntFieldUpdateOperationsInput | number
+    player1Score?: IntFieldUpdateOperationsInput | number
+    player2Score?: IntFieldUpdateOperationsInput | number
+    completedTurns?: IntFieldUpdateOperationsInput | number
+    totalTurns?: IntFieldUpdateOperationsInput | number
+    activePairKey?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MultiplayerGameUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumMultiplayerGameStatusFieldUpdateOperationsInput | $Enums.MultiplayerGameStatus
+    phase?: EnumMultiplayerPhaseFieldUpdateOperationsInput | $Enums.MultiplayerPhase
+    difficulty?: StringFieldUpdateOperationsInput | string
+    player1ClerkId?: StringFieldUpdateOperationsInput | string
+    player1Username?: StringFieldUpdateOperationsInput | string
+    player2ClerkId?: StringFieldUpdateOperationsInput | string
+    player2Username?: StringFieldUpdateOperationsInput | string
+    currentTurnClerkId?: NullableStringFieldUpdateOperationsInput | string | null
+    answeringPlayerClerkId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    currentQuestions?: NullableJsonNullValueInput | InputJsonValue
+    currentQuestionIndex?: IntFieldUpdateOperationsInput | number
+    player1Score?: IntFieldUpdateOperationsInput | number
+    player2Score?: IntFieldUpdateOperationsInput | number
+    completedTurns?: IntFieldUpdateOperationsInput | number
+    totalTurns?: IntFieldUpdateOperationsInput | number
+    activePairKey?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MultiplayerGameCreateManyInput = {
+    id?: string
+    status?: $Enums.MultiplayerGameStatus
+    phase?: $Enums.MultiplayerPhase
+    difficulty: string
+    player1ClerkId: string
+    player1Username: string
+    player2ClerkId: string
+    player2Username: string
+    currentTurnClerkId?: string | null
+    answeringPlayerClerkId?: string | null
+    currentCategory?: string | null
+    currentQuestions?: NullableJsonNullValueInput | InputJsonValue
+    currentQuestionIndex?: number
+    player1Score?: number
+    player2Score?: number
+    completedTurns?: number
+    totalTurns?: number
+    activePairKey?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MultiplayerGameUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumMultiplayerGameStatusFieldUpdateOperationsInput | $Enums.MultiplayerGameStatus
+    phase?: EnumMultiplayerPhaseFieldUpdateOperationsInput | $Enums.MultiplayerPhase
+    difficulty?: StringFieldUpdateOperationsInput | string
+    player1ClerkId?: StringFieldUpdateOperationsInput | string
+    player1Username?: StringFieldUpdateOperationsInput | string
+    player2ClerkId?: StringFieldUpdateOperationsInput | string
+    player2Username?: StringFieldUpdateOperationsInput | string
+    currentTurnClerkId?: NullableStringFieldUpdateOperationsInput | string | null
+    answeringPlayerClerkId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    currentQuestions?: NullableJsonNullValueInput | InputJsonValue
+    currentQuestionIndex?: IntFieldUpdateOperationsInput | number
+    player1Score?: IntFieldUpdateOperationsInput | number
+    player2Score?: IntFieldUpdateOperationsInput | number
+    completedTurns?: IntFieldUpdateOperationsInput | number
+    totalTurns?: IntFieldUpdateOperationsInput | number
+    activePairKey?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MultiplayerGameUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumMultiplayerGameStatusFieldUpdateOperationsInput | $Enums.MultiplayerGameStatus
+    phase?: EnumMultiplayerPhaseFieldUpdateOperationsInput | $Enums.MultiplayerPhase
+    difficulty?: StringFieldUpdateOperationsInput | string
+    player1ClerkId?: StringFieldUpdateOperationsInput | string
+    player1Username?: StringFieldUpdateOperationsInput | string
+    player2ClerkId?: StringFieldUpdateOperationsInput | string
+    player2Username?: StringFieldUpdateOperationsInput | string
+    currentTurnClerkId?: NullableStringFieldUpdateOperationsInput | string | null
+    answeringPlayerClerkId?: NullableStringFieldUpdateOperationsInput | string | null
+    currentCategory?: NullableStringFieldUpdateOperationsInput | string | null
+    currentQuestions?: NullableJsonNullValueInput | InputJsonValue
+    currentQuestionIndex?: IntFieldUpdateOperationsInput | number
+    player1Score?: IntFieldUpdateOperationsInput | number
+    player2Score?: IntFieldUpdateOperationsInput | number
+    completedTurns?: IntFieldUpdateOperationsInput | number
+    totalTurns?: IntFieldUpdateOperationsInput | number
+    activePairKey?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2509,6 +4254,224 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumMultiplayerGameStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MultiplayerGameStatus | EnumMultiplayerGameStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MultiplayerGameStatus[] | ListEnumMultiplayerGameStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MultiplayerGameStatus[] | ListEnumMultiplayerGameStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMultiplayerGameStatusFilter<$PrismaModel> | $Enums.MultiplayerGameStatus
+  }
+
+  export type EnumMultiplayerPhaseFilter<$PrismaModel = never> = {
+    equals?: $Enums.MultiplayerPhase | EnumMultiplayerPhaseFieldRefInput<$PrismaModel>
+    in?: $Enums.MultiplayerPhase[] | ListEnumMultiplayerPhaseFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MultiplayerPhase[] | ListEnumMultiplayerPhaseFieldRefInput<$PrismaModel>
+    not?: NestedEnumMultiplayerPhaseFilter<$PrismaModel> | $Enums.MultiplayerPhase
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type MultiplayerGameCountOrderByAggregateInput = {
+    id?: SortOrder
+    status?: SortOrder
+    phase?: SortOrder
+    difficulty?: SortOrder
+    player1ClerkId?: SortOrder
+    player1Username?: SortOrder
+    player2ClerkId?: SortOrder
+    player2Username?: SortOrder
+    currentTurnClerkId?: SortOrder
+    answeringPlayerClerkId?: SortOrder
+    currentCategory?: SortOrder
+    currentQuestions?: SortOrder
+    currentQuestionIndex?: SortOrder
+    player1Score?: SortOrder
+    player2Score?: SortOrder
+    completedTurns?: SortOrder
+    totalTurns?: SortOrder
+    activePairKey?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MultiplayerGameAvgOrderByAggregateInput = {
+    currentQuestionIndex?: SortOrder
+    player1Score?: SortOrder
+    player2Score?: SortOrder
+    completedTurns?: SortOrder
+    totalTurns?: SortOrder
+  }
+
+  export type MultiplayerGameMaxOrderByAggregateInput = {
+    id?: SortOrder
+    status?: SortOrder
+    phase?: SortOrder
+    difficulty?: SortOrder
+    player1ClerkId?: SortOrder
+    player1Username?: SortOrder
+    player2ClerkId?: SortOrder
+    player2Username?: SortOrder
+    currentTurnClerkId?: SortOrder
+    answeringPlayerClerkId?: SortOrder
+    currentCategory?: SortOrder
+    currentQuestionIndex?: SortOrder
+    player1Score?: SortOrder
+    player2Score?: SortOrder
+    completedTurns?: SortOrder
+    totalTurns?: SortOrder
+    activePairKey?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MultiplayerGameMinOrderByAggregateInput = {
+    id?: SortOrder
+    status?: SortOrder
+    phase?: SortOrder
+    difficulty?: SortOrder
+    player1ClerkId?: SortOrder
+    player1Username?: SortOrder
+    player2ClerkId?: SortOrder
+    player2Username?: SortOrder
+    currentTurnClerkId?: SortOrder
+    answeringPlayerClerkId?: SortOrder
+    currentCategory?: SortOrder
+    currentQuestionIndex?: SortOrder
+    player1Score?: SortOrder
+    player2Score?: SortOrder
+    completedTurns?: SortOrder
+    totalTurns?: SortOrder
+    activePairKey?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MultiplayerGameSumOrderByAggregateInput = {
+    currentQuestionIndex?: SortOrder
+    player1Score?: SortOrder
+    player2Score?: SortOrder
+    completedTurns?: SortOrder
+    totalTurns?: SortOrder
+  }
+
+  export type EnumMultiplayerGameStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MultiplayerGameStatus | EnumMultiplayerGameStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MultiplayerGameStatus[] | ListEnumMultiplayerGameStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MultiplayerGameStatus[] | ListEnumMultiplayerGameStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMultiplayerGameStatusWithAggregatesFilter<$PrismaModel> | $Enums.MultiplayerGameStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMultiplayerGameStatusFilter<$PrismaModel>
+    _max?: NestedEnumMultiplayerGameStatusFilter<$PrismaModel>
+  }
+
+  export type EnumMultiplayerPhaseWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MultiplayerPhase | EnumMultiplayerPhaseFieldRefInput<$PrismaModel>
+    in?: $Enums.MultiplayerPhase[] | ListEnumMultiplayerPhaseFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MultiplayerPhase[] | ListEnumMultiplayerPhaseFieldRefInput<$PrismaModel>
+    not?: NestedEnumMultiplayerPhaseWithAggregatesFilter<$PrismaModel> | $Enums.MultiplayerPhase
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMultiplayerPhaseFilter<$PrismaModel>
+    _max?: NestedEnumMultiplayerPhaseFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type UserCreateNestedManyWithoutFriendOfInput = {
@@ -2683,6 +4646,26 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type EnumMultiplayerGameStatusFieldUpdateOperationsInput = {
+    set?: $Enums.MultiplayerGameStatus
+  }
+
+  export type EnumMultiplayerPhaseFieldUpdateOperationsInput = {
+    set?: $Enums.MultiplayerPhase
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -2805,6 +4788,115 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumMultiplayerGameStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MultiplayerGameStatus | EnumMultiplayerGameStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MultiplayerGameStatus[] | ListEnumMultiplayerGameStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MultiplayerGameStatus[] | ListEnumMultiplayerGameStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMultiplayerGameStatusFilter<$PrismaModel> | $Enums.MultiplayerGameStatus
+  }
+
+  export type NestedEnumMultiplayerPhaseFilter<$PrismaModel = never> = {
+    equals?: $Enums.MultiplayerPhase | EnumMultiplayerPhaseFieldRefInput<$PrismaModel>
+    in?: $Enums.MultiplayerPhase[] | ListEnumMultiplayerPhaseFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MultiplayerPhase[] | ListEnumMultiplayerPhaseFieldRefInput<$PrismaModel>
+    not?: NestedEnumMultiplayerPhaseFilter<$PrismaModel> | $Enums.MultiplayerPhase
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedEnumMultiplayerGameStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MultiplayerGameStatus | EnumMultiplayerGameStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MultiplayerGameStatus[] | ListEnumMultiplayerGameStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MultiplayerGameStatus[] | ListEnumMultiplayerGameStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMultiplayerGameStatusWithAggregatesFilter<$PrismaModel> | $Enums.MultiplayerGameStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMultiplayerGameStatusFilter<$PrismaModel>
+    _max?: NestedEnumMultiplayerGameStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMultiplayerPhaseWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MultiplayerPhase | EnumMultiplayerPhaseFieldRefInput<$PrismaModel>
+    in?: $Enums.MultiplayerPhase[] | ListEnumMultiplayerPhaseFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MultiplayerPhase[] | ListEnumMultiplayerPhaseFieldRefInput<$PrismaModel>
+    not?: NestedEnumMultiplayerPhaseWithAggregatesFilter<$PrismaModel> | $Enums.MultiplayerPhase
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMultiplayerPhaseFilter<$PrismaModel>
+    _max?: NestedEnumMultiplayerPhaseFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type UserCreateWithoutFriendOfInput = {

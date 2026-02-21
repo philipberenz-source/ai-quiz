@@ -5,12 +5,11 @@ import CategorySelection from '../components/CategorySelection';
 import Quiz from '../components/Quiz';
 import Score from '../components/Score';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import { GAME_CATEGORIES, GAME_DIFFICULTIES } from "../constants/gameConfig";
 
 function SinglePlayer() {
   const [step, setStep] = useState('difficulty');
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [roundNumber, setRoundNumber] = useState(1);
@@ -23,38 +22,8 @@ function SinglePlayer() {
   const timerRef = useRef(null);
   const audioRef = useRef(null); // 🔊 New ref for audio
 
-  const difficulties = [
-    { id: 'easy', name: 'Einfach' },
-    { id: 'intermediate', name: 'Mittel' },
-    { id: 'advanced', name: 'Fortg.' },
-    { id: 'hard', name: 'Schwer' },
-    { id: 'impossible', name: 'Gott' }
-  ];
-
-  const allCategories = [
-    { id: 'science', name: 'Wissenschaft' },
-    { id: 'history', name: 'Geschichte' },
-    { id: 'geography', name: 'Geographie' },
-    { id: 'tech', name: 'Technologie' },
-    { id: 'sports', name: 'Sport' },
-    { id: 'arts', name: 'Kunst & Kultur' },
-    { id: 'language', name: 'Sprache & Literatur' },
-    { id: 'medicine', name: 'Medizin' },
-    { id: 'movies', name: 'Filme & TV' },
-    { id: 'general', name: 'Allgemeinwissen' },
-    { id: 'music', name: 'Musik' },
-    { id: 'food', name: 'Essen & Trinken' },
-    { id: 'space', name: 'Weltraum' },
-    { id: 'mythology', name: 'Mythologie' },
-    { id: 'philosophy', name: 'Philosophie' },
-    { id: 'economics', name: 'Wirtschaft' },
-    { id: 'psychology', name: 'Psychologie' },
-    { id: 'politics', name: 'Politik' },
-    { id: 'fashion', name: 'Mode' },
-    { id: 'nature', name: 'Natur & Umwelt' },
-    { id: 'france', name: 'Frankreich' },
-    { id: 'Stats and facts', name: 'Zahlen und Fakten' }
-  ];
+  const difficulties = GAME_DIFFICULTIES;
+  const allCategories = GAME_CATEGORIES;
 
   useEffect(() => {
     const shuffled = [...allCategories]
@@ -138,7 +107,6 @@ function SinglePlayer() {
   };
 
   const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
     fetchQuestions(category.id);
     setShuffledCategories(prev => prev.filter(c => c.id !== category.id));
   };
@@ -193,7 +161,6 @@ function SinglePlayer() {
   const restartQuiz = () => {
     setStep('difficulty');
     setSelectedDifficulty(null);
-    setSelectedCategory(null);
     setQuestions([]);
     setCurrentQuestionIndex(0);
     setRoundNumber(1);

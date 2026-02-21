@@ -26,3 +26,39 @@ model User {
   pendingFriends User[]  @relation("PendingFriends")
   pendingFrom    User[]  @relation("PendingFriends")
 }
+
+enum MultiplayerGameStatus {
+  ACTIVE
+  COMPLETED
+}
+
+enum MultiplayerPhase {
+  PICK_CATEGORY
+  ANSWERING
+}
+
+model MultiplayerGame {
+  id                     String                @id @default(cuid())
+  status                 MultiplayerGameStatus @default(ACTIVE)
+  phase                  MultiplayerPhase      @default(PICK_CATEGORY)
+  difficulty             String
+  player1ClerkId         String
+  player1Username        String
+  player2ClerkId         String
+  player2Username        String
+  currentTurnClerkId     String?
+  answeringPlayerClerkId String?
+  currentCategory        String?
+  currentQuestions       Json?
+  currentQuestionIndex   Int                   @default(0)
+  player1Score           Int                   @default(0)
+  player2Score           Int                   @default(0)
+  completedTurns         Int                   @default(0)
+  totalTurns             Int                   @default(6)
+  activePairKey          String?               @unique
+  createdAt              DateTime              @default(now())
+  updatedAt              DateTime              @updatedAt
+
+  @@index([player1ClerkId, status])
+  @@index([player2ClerkId, status])
+}
