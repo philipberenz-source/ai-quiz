@@ -459,3 +459,107 @@
     font-size: 2rem;
   }
 }
+
+.invite-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.invite-controls label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.invite-controls select {
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0.45rem 0.6rem;
+}
+
+.active-games-box {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.1) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 1.5rem;
+}
+
+.active-games-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.active-game-item {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  text-align: left;
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.active-game-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.active-game-title {
+  font-weight: 700;
+}
+
+.active-game-meta {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.active-game-score {
+  font-size: 0.95rem;
+  color: #bce7ff;
+}
+
+.system-message {
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.system-message.sent,
+.system-message.accepted,
+.system-message.existing-game {
+  background: rgba(39, 174, 96, 0.2);
+  border: 1px solid rgba(39, 174, 96, 0.4);
+}
+
+.system-message.error,
+.system-message.declined,
+.system-message.cancelled {
+  background: rgba(192, 57, 43, 0.2);
+  border: 1px solid rgba(192, 57, 43, 0.4);
+}
+
+/* Overrides for multiplayer dashboard UX fixes */
+.dashboard-card {
+  width: 100%;
+}
+
+.invite-controls select {
+  background: #1a1f2b;
+  color: #f3f6ff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.invite-controls select option {
+  background: #1a1f2b;
+  color: #f3f6ff;
+}
