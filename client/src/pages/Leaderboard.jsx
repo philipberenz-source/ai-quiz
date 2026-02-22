@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table";
+import { SERVER_URL } from "../constants/gameConfig";
 
 function Leaderboard() {
   const [players, setPlayers] = useState([]);
@@ -15,7 +15,7 @@ function Leaderboard() {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch("http://localhost:8080/leaderboard");
+      const response = await fetch(`${SERVER_URL}/leaderboard`);
       if (!response.ok) {
         throw new Error("Failed to load leaderboard");
       }

@@ -9,7 +9,7 @@ import Navbar from "../components/Navbar";
 import { Badge } from "../components/ui/badge";
 import { Card, CardContent } from "../components/ui/card";
 import { Progress } from "../components/ui/progress";
-import { GAME_CATEGORIES, GAME_DIFFICULTIES } from "../constants/gameConfig";
+import { GAME_CATEGORIES, GAME_DIFFICULTIES, SERVER_URL } from "../constants/gameConfig";
 
 const TOTAL_ROUNDS = 4;
 const QUESTIONS_PER_ROUND = 3;
@@ -50,7 +50,7 @@ function SinglePlayer() {
           return;
         }
 
-        await fetch("http://localhost:8080/leaderboard/singleplayer", {
+        await fetch(`${SERVER_URL}/leaderboard/singleplayer`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -161,7 +161,7 @@ function SinglePlayer() {
     setCurrentQuestionIndex(0);
     try {
       const response = await fetch(
-        `http://localhost:8080/retrievequestions?category=${encodeURIComponent(categoryName)}&difficulty=${selectedDifficultyId}`
+        `${SERVER_URL}/retrievequestions?category=${encodeURIComponent(categoryName)}&difficulty=${selectedDifficultyId}`
       );
       const data = await response.json();
 
