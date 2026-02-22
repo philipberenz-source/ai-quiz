@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import SinglePlayer from "./pages/Singleplayer";
@@ -76,6 +76,8 @@ function App() {
           }
         />
         <Route path="/howitworks" element={<HowItWorks />} />
+        <Route path="/dashbaord" element={<Navigate to="/dashboard" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       </SocketProvider>
     </Router>
