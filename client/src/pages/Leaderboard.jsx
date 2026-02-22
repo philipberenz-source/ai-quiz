@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useAuth } from "@clerk/clerk-react";
 import Navbar from "../components/Navbar";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
@@ -7,6 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { SERVER_URL } from "../constants/gameConfig";
 
 function Leaderboard() {
+  const { getToken } = useAuth();
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -15,7 +17,16 @@ function Leaderboard() {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch(`${SERVER_URL}/leaderboard`);
+      const token = await getToken();
+      if (!token) {
+        throw new Error("Missing auth token");
+      }
+
+      const response = await fetch(`${SERVER_URL}/leaderboard`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (!response.ok) {
         throw new Error("Failed to load leaderboard");
       }
@@ -33,7 +44,7 @@ function Leaderboard() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [getToken]);
 
   useEffect(() => {
     loadLeaderboard();

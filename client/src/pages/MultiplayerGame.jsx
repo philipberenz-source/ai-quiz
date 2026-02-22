@@ -18,6 +18,7 @@ function MultiplayerGame() {
   const { gamesById, chooseCategory, submitAnswer, refreshDashboard, lastSystemMessage } = useSocket();
   const [timeLeft, setTimeLeft] = useState(MULTIPLAYER_QUESTION_SECONDS);
   const [turnCategories, setTurnCategories] = useState(() => pickCategoriesForTurn());
+  const [pendingCategoryId, setPendingCategoryId] = useState(null);
   const timerRef = useRef(null);
   const submissionLockRef = useRef(false);
   const game = gamesById[gameId];
@@ -106,13 +107,25 @@ function MultiplayerGame() {
   );
 
   useEffect(() => {
+    if (!canPickCategory) {
+      setPendingCategoryId(null);
+    }
+  }, [canPickCategory]);
+
+  useEffect(() => {
     if (canPickCategory) {
       setTurnCategories(pickCategoriesForTurn());
+      setPendingCategoryId(null);
     }
   }, [canPickCategory, game?.id, game?.completedTurns]);
 
   const handleCategorySelect = (category) => {
-    setTurnCategories((previous) => previous.filter((item) => item.id !== category.id));
+    if (!game || !category || pendingCategoryId) {
+      return;
+    }
+
+    setPendingCategoryId(category.id);
+    setTurnCategories([category]);
     chooseCategory(game.id, category.name);
   };
 
@@ -143,7 +156,12 @@ function MultiplayerGame() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <CategorySelection categories={turnCategories} onSelectCategory={handleCategorySelect} />
+            <CategorySelection
+              categories={turnCategories}
+              onSelectCategory={handleCategorySelect}
+              selectedCategoryId={pendingCategoryId}
+              disableSelection={Boolean(pendingCategoryId)}
+            />
           </CardContent>
         </Card>
       );
