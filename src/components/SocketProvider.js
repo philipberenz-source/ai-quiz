@@ -130,6 +130,30 @@ export const SocketProvider = ({ children }) => {
       });
     };
 
+    const onGameRemoved = (payload = {}) => {
+      const { gameId, message } = payload;
+      if (!gameId) {
+        return;
+      }
+
+      setGamesById((prev) => {
+        if (!prev[gameId]) {
+          return prev;
+        }
+        const next = { ...prev };
+        delete next[gameId];
+        return next;
+      });
+      setActiveGames((prev) => prev.filter((game) => game.id !== gameId));
+
+      if (message) {
+        setLastSystemMessage({
+          status: "cancelled",
+          message,
+        });
+      }
+    };
+
     s.on("connect", () => {
       s.emit("dashboard:refresh");
     });
@@ -139,6 +163,7 @@ export const SocketProvider = ({ children }) => {
     s.on("invite:result", onInviteResult);
     s.on("game:updated", onGameUpdated);
     s.on("game:error", onGameError);
+    s.on("game:removed", onGameRemoved);
 
     setInstance(s);
 
@@ -149,6 +174,7 @@ export const SocketProvider = ({ children }) => {
       s.off("invite:result", onInviteResult);
       s.off("game:updated", onGameUpdated);
       s.off("game:error", onGameError);
+      s.off("game:removed", onGameRemoved);
       s.disconnect();
       socket = null;
     };
@@ -186,6 +212,14 @@ export const SocketProvider = ({ children }) => {
     [instance]
   );
 
+  const deleteGame = useCallback(
+    (gameId) => {
+      if (!instance) return;
+      instance.emit("game:delete", { gameId });
+    },
+    [instance]
+  );
+
   const refreshDashboard = useCallback(() => {
     if (!instance) return;
     instance.emit("dashboard:refresh");
@@ -207,6 +241,7 @@ export const SocketProvider = ({ children }) => {
       respondInvite,
       chooseCategory,
       submitAnswer,
+      deleteGame,
       refreshDashboard,
       clearLastSystemMessage,
     }),
@@ -221,6 +256,7 @@ export const SocketProvider = ({ children }) => {
       respondInvite,
       chooseCategory,
       submitAnswer,
+      deleteGame,
       refreshDashboard,
       clearLastSystemMessage,
     ]

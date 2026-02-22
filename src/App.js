@@ -6,6 +6,7 @@ import SinglePlayer from "./pages/Singleplayer";
 import HowItWorks from "./pages/HowItWorks";
 import Dashboard from "./pages/Dashboard";
 import MultiplayerGame from "./pages/MultiplayerGame";
+import Leaderboard from "./pages/Leaderboard";
 import {
   SignedIn,
   SignedOut,
@@ -54,6 +55,19 @@ function App() {
             <>
               <SignedIn>
                 <MultiplayerGame />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+        <Route
+          path="/leaderboard"
+          element={
+            <>
+              <SignedIn>
+                <Leaderboard />
               </SignedIn>
               <SignedOut>
                 <RedirectToSignIn />
