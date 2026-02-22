@@ -1,12 +1,13 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
 import { useUser } from "@clerk/clerk-react";
+import { SERVER_URL } from "../constants/gameConfig";
 
 let socket;
 
 export const initSocket = (auth) => {
   if (!socket) {
-    socket = io("http://localhost:8080", { auth });
+    socket = io(SERVER_URL, { auth });
   }
   return socket;
 };

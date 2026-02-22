@@ -1,3 +1,7 @@
+const rawServerUrl = process.env.REACT_APP_SERVER_URL || "http://localhost:8080";
+
+export const SERVER_URL = rawServerUrl.replace(/\/+$/, "");
+
 export const GAME_DIFFICULTIES = [
   { id: "easy", name: "Easy" },
   { id: "intermediate", name: "Medium" },
