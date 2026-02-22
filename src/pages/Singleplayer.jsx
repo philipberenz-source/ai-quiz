@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "@clerk/clerk-react";
+import { useAuth, useUser } from "@clerk/clerk-react";
 import DifficultySelection from "../components/DifficultySelection";
 import CategorySelection from "../components/CategorySelection";
 import Quiz from "../components/Quiz";
@@ -20,6 +20,7 @@ const DEFAULT_DIFFICULTY_ID = GAME_DIFFICULTIES[0]?.id || "";
 function SinglePlayer() {
   const navigate = useNavigate();
   const { user } = useUser();
+  const { getToken } = useAuth();
   const [step, setStep] = useState("difficulty");
   const [selectedDifficultyId, setSelectedDifficultyId] = useState(DEFAULT_DIFFICULTY_ID);
   const [questions, setQuestions] = useState([]);
@@ -30,6 +31,7 @@ function SinglePlayer() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [shuffledCategories, setShuffledCategories] = useState([]);
+  const [pendingCategoryId, setPendingCategoryId] = useState(null);
   const [timeLeft, setTimeLeft] = useState(QUESTION_SECONDS);
   const timerRef = useRef(null);
   const audioRef = useRef(null);
@@ -50,9 +52,17 @@ function SinglePlayer() {
           return;
         }
 
+        const token = await getToken();
+        if (!token) {
+          throw new Error("Missing auth token");
+        }
+
         await fetch(`${SERVER_URL}/leaderboard/singleplayer`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify({
             clerkId: user.id,
             username: user.username || user.fullName || "player",
@@ -63,7 +73,7 @@ function SinglePlayer() {
         console.error("Error submitting singleplayer score:", submitError);
       }
     },
-    [user?.fullName, user?.id, user?.username]
+    [getToken, user?.fullName, user?.id, user?.username]
   );
 
   const handleAnswer = useCallback(
@@ -153,29 +163,41 @@ function SinglePlayer() {
     };
   }, [step, currentQuestionIndex, questions, handleAnswer]);
 
-  const fetchQuestions = async (categoryName) => {
+  const fetchQuestions = async (categoryName, categoryId) => {
     setLoading(true);
     setError(null);
     setStep("loading");
     setQuestions([]);
     setCurrentQuestionIndex(0);
     try {
+      const token = await getToken();
+      if (!token) {
+        throw new Error("Missing auth token");
+      }
+
       const response = await fetch(
-        `${SERVER_URL}/retrievequestions?category=${encodeURIComponent(categoryName)}&difficulty=${selectedDifficultyId}`
+        `${SERVER_URL}/retrievequestions?category=${encodeURIComponent(categoryName)}&difficulty=${selectedDifficultyId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       const data = await response.json();
 
       if (data && Array.isArray(data) && data.length > 0) {
         setQuestions(data);
+        setShuffledCategories((previous) => previous.filter((item) => item.id !== categoryId));
         setStep("quiz");
       } else {
         throw new Error("Failed to fetch questions");
       }
     } catch (fetchError) {
-      setError("Failed to fetch questions. Please try again.");
+      setError("Failed to fetch questions. Please sign in again and retry.");
       setStep("category");
     } finally {
       setLoading(false);
+      setPendingCategoryId(null);
     }
   };
 
@@ -188,8 +210,12 @@ function SinglePlayer() {
   };
 
   const handleCategorySelect = (category) => {
-    fetchQuestions(category.name);
-    setShuffledCategories((previous) => previous.filter((item) => item.id !== category.id));
+    if (!category || pendingCategoryId) {
+      return;
+    }
+
+    setPendingCategoryId(category.id);
+    fetchQuestions(category.name, category.id);
   };
 
   const restartQuiz = () => {
@@ -200,6 +226,7 @@ function SinglePlayer() {
     setRoundNumber(1);
     setAnswers([]);
     setTotalScore(0);
+    setPendingCategoryId(null);
     setTimeLeft(QUESTION_SECONDS);
     const shuffled = [...allCategories].sort(() => 0.5 - Math.random()).slice(0, 6);
     setShuffledCategories(shuffled);
@@ -253,6 +280,8 @@ function SinglePlayer() {
               categories={shuffledCategories}
               onSelectCategory={handleCategorySelect}
               difficulty={selectedDifficulty}
+              selectedCategoryId={pendingCategoryId}
+              disableSelection={Boolean(pendingCategoryId)}
             />
           )}
 
