@@ -9,6 +9,10 @@ if (!PUBLISHABLE_KEY) {
   throw new Error('Add your Clerk Publishable Key to the .env file')
 }
 
+if (typeof document !== "undefined") {
+  document.documentElement.classList.add("dark");
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
